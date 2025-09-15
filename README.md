@@ -2,7 +2,7 @@
 
 **Nama:** [Jann Raphael Cornelius Silalahi]
 
-**NIM:** [NIM Anda]
+**NIM:** [2481025]
 
 **Mata Kuliah:** Pemrograman Berorientasi Objek
 
