@@ -1,0 +1,84 @@
+Bagian A: Sintaks dan Penamaan
+
+1.  System.out.println("Hello World")
+harusnya menggunakan ; diakhir agar kode berjalan
+    int 2number
+harusnya angka dibelakang kelas, bukan di awal
+    boolean is Active
+Tidak menggunakan spasi pada is Active
+
+2.  1. nomorIndukMahasiswa
+    Penjelasan:
+    Penamaan ini menggabungkan tiga kata: "nomor", "induk", dan "mahasiswa".
+
+    Kata pertama (nomor) dimulai dengan huruf kecil.
+
+    Kata kedua (Induk) dan ketiga (Mahasiswa) masing-masing dimulai dengan huruf kapital ('I' dan 'M').
+
+    Tidak ada spasi atau tanda hubung (_), semua kata digabung menjadi satu.
+
+    2. ipkSemesterLalu
+    Penjelasan:
+    Penamaan ini menggabungkan tiga konsep/kata: "ipk", "semester", dan "lalu".
+
+    Kata pertama (ipk) dimulai dengan huruf kecil.
+
+    Kata-kata berikutnya (Semester dan Lalu) dimulai dengan huruf kapital ('S' dan 'L').
+
+    Semua kata digabung langsung tanpa spasi.
+
+    3. alamatRumah
+    Penjelasan:
+    Penamaan ini menggabungkan dua kata: "alamat" dan "rumah".
+
+    Kata pertama (alamat) dimulai dengan huruf kecil.
+
+    Kata kedua (Rumah) dimulai dengan huruf kapital ('R').
+
+    Kedua kata tersebut digabung menjadi satu kesatuan.
+
+3.  Apa yang Terjadi Saat Compile?
+    Ketika Anda menjalankan perintah javac syntaxchecker.java, compiler Java akan membaca file tersebut dan melihat deklarasi public class SyntaxChecker. Compiler akan segera membandingkan nama class (SyntaxChecker) dengan nama file (syntaxchecker).
+    Karena "SyntaxChecker" (dengan S dan C kapital) tidak sama dengan "syntaxchecker" (semua huruf kecil), compiler akan menghentikan proses dan menampilkan pesan error yang spesifik.
+
+Bagian B: Tipe Data dan Casting
+
+1.  Perbedaan utama antara pembagian menggunakan int dan double terletak pada presisi (angka di belakang koma) dan cara Java menangani hasilnya.
+    Pembagian int (integer) di Java akan selalu menghasilkan int; Java akan memotong (truncate) atau membuang semua angka di belakang koma (desimal), bukan membulatkannya.
+    Pembagian double (floating-point) akan mempertahankan presisi desimalnya.
+
+2.  Berdasarkan program DataLossStudy tersebut, nilai yang mengalami data loss paling signifikan adalah Kasus 5: Perhitungan Waktu (Timestamp Overflow).
+    Alasan mengapa ini adalah loss yang paling signifikan adalah:
+    Kasus 1 (Nilai), Kasus 3 (Mata Uang), dan Kasus 4 (GPS) mengalami loss of precision (kehilangan presisi). Kita kehilangan data desimal (seperti 0.65 pada nilai atau 0.666... pada dolar) atau detail akurasi (pada GPS), tetapi nilai dasarnya (nilai 87, atau 1 dolar) masih relatif utuh.
+    Kasus 5 (dan Kasus 2) mengalami Overflow (Peluberan). Data loss di sini bukan hanya kehilangan koma; nilai aslinya (angka long yang sangat besar) sama sekali tidak muat di dalam int. Akibatnya, data tersebut "meluap" dan diinterpretasikan sebagai angka yang sama sekali berbeda (seringkali negatif atau angka acak), sehingga data tersebut menjadi korup total dan kehilangan seluruh maknanya.
+
+3.  Berdasarkan eksperimen di program TypeCastingExperiment (khususnya Skenario 4), saat Anda memaksa nilai int 300 ke dalam tipe data byte, hasilnya bukanlah 127 (nilai maksimum byte), melainkan:
+    Hasil yang Muncul: 44
+    Penjelasan (Mengapa 44?)
+    Fenomena ini disebut Overflow (atau "wrap-around"), dan ini terjadi murni karena cara komputer menyimpan data dalam biner (bit).
+
+4.  Konversi tipe data yang paling berisiko menyebabkan kesalahan fatal (data korup) adalah yang mendemonstrasikan Overflow (Peluberan), yang paling jelas ditunjukkan dalam program DataLossStudy.java.
+    Berbeda dengan konversi double ke int (di mana kita hanya kehilangan desimal secara terduga), skenario overflow menghancurkan nilai data sepenuhnya, mengubahnya menjadi angka yang sama sekali tidak valid.
+
+Bagian C: Input/Output
+
+1.  nextLine()
+    Metode ini digunakan untuk input nama dan jurusanKuliah.
+    Alasan: nextLine() membaca seluruh baris teks (string) hingga pengguna menekan tombol Enter. Ini adalah pilihan yang tepat karena nama lengkap (misalnya "Jann Raphael Silalahi") dan nama jurusan (misalnya "Teknik Informatika") seringkali mengandung spasi.
+    Jika kita menggunakan metode next() (yang hanya membaca sampai spasi pertama), input "Jann Raphael" hanya akan mengambil "Jann" saja.
+
+    nextInt()
+    Metode ini digunakan untuk input umur, semesterSaatini, dan tahunMasukkuliah.
+    Alasan: Metode ini secara khusus memindai (scan) input berikutnya sebagai integer (bilangan bulat). Ini sangat ideal karena umur, semester, dan tahun masuk adalah angka utuh tanpa komponen desimal.
+
+2.  Jika Anda memasukkan nilai di luar rentang 0-100 (misalnya 105 atau -10) untuk nilai Tugas, UTS, atau UAS, program tersebut akan langsung berhenti dieksekusi.
+    Program tidak akan melanjutkan ke perhitungan nilai akhir atau menampilkan hasil biodata.
+    Bagaimana Program Menanganinya
+    Program Anda menangani situasi ini menggunakan Validasi Input sederhana segera setelah pengguna memasukkan nilai:
+    Setelah pengguna memasukkan nilai (misalnya nilaiTugas), program segera memeriksanya dengan kondisi if:
+
+    Jika nilai tersebut valid (antara 0-100), blok if ini dilewati dan program lanjut meminta nilai UTS.
+    Namun, jika nilai tersebut tidak valid (di bawah 0 ATAU di atas 100), program akan menjalankan kode di dalam blok if: if (nilaiTugas < 0 || nilaiTugas > 100) {
+    Mencetak pesan error: "Error: Nilai harus antara 0 dan 100. Program berhenti."
+    Menutup scanner (scanner.close();).
+    Menjalankan perintah return;. Karena ini berada di dalam metode main, perintah return; berfungsi untuk menghentikan paksa (terminate) seluruh program pada saat itu juga.
